@@ -1,0 +1,23 @@
+{
+  "name": "node-workshop",
+  "version": "1.0.0",
+  "description": "sample node project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artysidorenko/node-workshop.git"
+  },
+  "keywords": [
+    "practice",
+    "beginner"
+  ],
+  "author": "Arty Sidorenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artysidorenko/node-workshop/issues"
+  },
+  "homepage": "https://github.com/artysidorenko/node-workshop#readme"
+}
