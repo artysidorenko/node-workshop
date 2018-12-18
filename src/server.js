@@ -11,10 +11,23 @@ function handler (request, response) {
   var method = request.method;
   console.log(method);
 
-  if(endpoint=="/node")  {message="I am Node!";}
-  if(endpoint=="/girl")  {message="I am (she) Node!";}
-
-  if(endpoint==="/")  {
+  if (endpoint.slice(-3)==="css") {
+    response.writeHead(200, {"Content-Type": "text/css"});
+    fs.readFile(__dirname + '/../public/' + endpoint.slice(1), function(error, file)  {
+      if (error)  {console.log(error); return;}
+      response.end(file);
+    });
+  }
+  else if (endpoint.slice(-3)==="jpg")  {
+    response.writeHead(200, {"Content-Type": "image/jpeg"});
+    fs.readFile(__dirname + '/../public/' + endpoint.slice(1), function(error, file)  {
+      if (error)  {console.log(error); return;}
+      response.end(file);
+    });
+  }
+  else if(endpoint==="/node")  {message="I am Node!";}
+  else if(endpoint==="/girl")  {message="I am (she) Node!";}
+  else if(endpoint==="/")  {
     response.writeHead(200, {"Content-Type": "text/html"});
     fs.readFile(__dirname + '/../public/index.html', function(error, file)  {
       if (error)  {console.log(error); return;}
