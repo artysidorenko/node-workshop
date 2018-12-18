@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var querystring = require('querystring')
 
 var message = "I may not be a girl but I'm happy to be part of the node girls workshop";
 
@@ -33,6 +34,18 @@ function handler (request, response) {
       if (error)  {console.log(error); return;}
       response.end(file);
     });
+  }
+  else if(endpoint==="/create-post")  {
+    var allTheData = "";
+    request.on('data', function(chunkOfData)  {
+      allTheData += chunkOfData;
+    });
+    request.on('end', function()  {
+      var convertedData = querystring.parse(allTheData);
+      console.log(convertedData);
+      response.writeHead(303, {"Location": "/"})
+      response.end();
+    })
   }
   else {
     response.writeHead(200, {"Content-Type": "text/html"});
