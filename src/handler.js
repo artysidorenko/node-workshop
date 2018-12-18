@@ -40,8 +40,37 @@ function handler(request, response)  {
     request.on('end', function()  {
       var parsedBlogText = querystring.parse(rawBlogText);
       console.log(parsedBlogText);
+      fs.readFile(__dirname + '/posts.json', function(error, file)  {
+        if (error) {console.log(error); return;}
+        let blogObj = JSON.parse(file);
+        let now = Date.now();
+        blogObj[now] = parsedBlogText.post;
+        let newFile = JSON.stringify(blogObj);
+        console.log(newFile);
+        fs.writeFile(__dirname + '/posts.json', newFile, function(error) {
+          if (error)  {console.log(error); return;}
+          console.log('successfully written to posts.json')
+        });
+      });
+
       response.writeHead(303, {"Location": "/"});
       response.end();
+    });
+  }
+
+  else if (endpoint==="/script.js")  {
+    response.writeHead(200, {"Content-Type": "text/javascript"});
+    fs.readFile(__dirname + '/../public/script.js', function(error, file)  {
+      if (error)  {console.log(error); return;}
+      response.end(file);
+    });
+  }
+
+  else if (endpoint==="/posts") {
+    response.writeHead(200, {"Content-Type": "application/json"});
+    fs.readFile(__dirname + '/posts.json', function(error, file)  {
+      if (error)  {console.log(error); return;}
+      response.end(file);
     });
   }
 
